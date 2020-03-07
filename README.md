@@ -1,3 +1,6 @@
+
+
+```shell
 ## 准备好所有的资源文件
 [../images/]
 
@@ -35,7 +38,8 @@ EXPOSE 9200
 EXPOSE 9300
 EXPOSE 8080
 -----
-## es-sql的容器构造过程1.1
+
+## 1.0.es-sql的容器构造过程1.1
 在 Dockerfile 文件所在目录执行：
 [root@hbase-phoenix es-sqly]# docker build -t elasticsearch-sql:6.6.2 .
 命令最后有一个. 表示当前目录，，或者docker build  --no-cache -t elasticsearch-sql:6.6.2 .
@@ -47,23 +51,23 @@ elasticsearch-sql                             6.6.2                        829a5
 docker run  --name es-sql  -d -p 8080:8080 -p 9300:9300 -p 9200:9200 elasticsearch-sql:6.6.2
 这条命令会用 nginx 镜像启动一个容器，命名为docker_nginx_v1，并且映射了 80 端口，这样我们可以用浏览器去访问这个 nginx 服务器：http://192.168.0.54/，页面返回信息：
 docker run  --name es-sql  -p 8080:8080 -p 9300:9300 -p 9200:9200 elasticsearch-sql:6.6.2
-## 查看本地镜像1.2
+## 1.1.查看本地镜像1.2
 [root@hbase-phoenix es-sqly]# docker images
 REPOSITORY                                    TAG                          IMAGE ID            CREATED             SIZE
 elasticsearch-sql                             6.6.2                        829a51b69bea        14 minutes ago      1.23 GB
-## 打tag镜像为851279676/es-sql:6.6.2
+## 1.2.打tag镜像为851279676/es-sql:6.6.2
 [root@hbase-phoenix es-sqly]# docker tag 829a51b69bea 851279676/es-sql:6.6.2
 [root@hbase-phoenix es-sqly]# docker images
 REPOSITORY                                    TAG                          IMAGE ID            CREATED             SIZE
 elasticsearch-sql                             6.6.2                        829a51b69bea        36 minutes ago      1.23 GB
 851279676/es-sql                              6.6.2                        829a51b69bea        36 minutes ago      1.23 GB
-## 登陆远程仓库1.3
+## 1.3.登陆远程仓库
 [root@hbase-phoenix es-sqly]# docker login
 Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
 Username (851279676): 851279676
 Password: 
 Login Succeeded
-## 提交到远程仓库1.4
+## 1.4.提交到远程仓库
 [root@hbase-phoenix es-sqly]# docker push 851279676/es-sql:6.6.2
 The push refers to a repository [docker.io/851279676/es-sql]
 d4f8ef7cc6d3: Pushed 
@@ -87,3 +91,51 @@ f82bc681981a: Mounted from library/elasticsearch
 6.6.2: digest: sha256:5bd18563da2a2e5f67bfebcdcbe70b502caffd2033119d5a90978b5634253962 size: 4096
 [root@hbase-phoenix es-sqly]# 
 
+## 1.5.从远程仓库下载该镜像
+[root@hbase-phoenix es-sqly]# docker pull 851279676/es-sql:6.6.2
+Trying to pull repository docker.io/851279676/es-sql ... 
+6.6.2: Pulling from docker.io/851279676/es-sql
+a02a4930cb5d: Already exists 
+1c0c2b94f1aa: Already exists 
+e7ba1c987917: Already exists 
+8a5898116619: Already exists 
+fa49d069f225: Already exists 
+0dee6ce7977c: Already exists 
+77ecd20c6308: Already exists 
+959a5b064eb1: Pull complete 
+16e96ca5402d: Pull complete 
+3a23c1d3c3cb: Pull complete 
+d5354ec81c26: Pull complete 
+f7851c8f8b5c: Pull complete 
+53d537559025: Pull complete 
+8082545762e5: Pull complete 
+02e013c5b4b6: Pull complete 
+4dfd8f2f39a5: Pull complete 
+94c3b7c63041: Downloading [==================================================>] 174.2 MB/174.2 MB
+c371754f6946: Download complete 
+6.6.2: Pulling from docker.io/851279676/es-sql
+a02a4930cb5d: Already exists 
+1c0c2b94f1aa: Already exists 
+e7ba1c987917: Already exists 
+8a5898116619: Already exists 
+fa49d069f225: Already exists 
+0dee6ce7977c: Already exists 
+77ecd20c6308: Already exists 
+959a5b064eb1: Pull complete 
+16e96ca5402d: Pull complete 
+3a23c1d3c3cb: Pull complete 
+d5354ec81c26: Pull complete 
+f7851c8f8b5c: Pull complete 
+53d537559025: Pull complete 
+8082545762e5: Pull complete 
+02e013c5b4b6: Pull complete 
+4dfd8f2f39a5: Pull complete 
+94c3b7c63041: Pull complete 
+c371754f6946: Pull complete 
+Digest: sha256:5bd18563da2a2e5f67bfebcdcbe70b502caffd2033119d5a90978b5634253962
+Status: Downloaded newer image for docker.io/851279676/es-sql:6.6.2
+[root@hbase-phoenix es-sqly]# docker images
+REPOSITORY                                    TAG                          IMAGE ID            CREATED             SIZE
+docker.io/851279676/es-sql                    6.6.2                        829a51b69bea        About an hour ago   1.23 GB
+
+```
