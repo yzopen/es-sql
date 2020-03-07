@@ -2,7 +2,7 @@
 
 ```shell
 ## 准备好所有的资源文件
-[../images/]
+[./images/file.bmp]
 
 ## es-sql的容器构造过程1.0
 -----
