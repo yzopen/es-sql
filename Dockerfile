@@ -2,8 +2,7 @@
 FROM elasticsearch:6.6.2
 
 # MAINTAINER
-MAINTAINER sunnywalden@gmail.com
-
+MAINTAINER yaz1027@163.com
 ENV ES_HOME /usr/share/elasticsearch
 
 RUN mkdir -p ${ES_HOME}/node
