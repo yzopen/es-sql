@@ -1,9 +1,10 @@
 
 
-```shell
-## 准备好所有的资源文件
-[./images/file.bmp]
 
+## 准备好所有的资源文件
+![Image](https://github.com/yzopen/es-sql/blob/master/images/file.bmp)
+
+```shell
 ## es-sql的容器构造过程1.0
 -----
 # base image
