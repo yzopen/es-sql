@@ -1,11 +1,11 @@
 
 
-```shell
-## 准备好所有的资源文件
-[../images/]
 
-## es-sql的容器构造过程1.0
------
+## 准备好所有的资源文件
+[./images/file.bmp]
+
+## es-sql的容器构造过程
+```shell
 # base image
 FROM elasticsearch:6.6.2
 # MAINTAINER
@@ -38,8 +38,9 @@ EXPOSE 9200
 EXPOSE 9300
 EXPOSE 8080
 -----
-
+```
 ## 1.0.es-sql的容器构造过程1.1
+```shell
 在 Dockerfile 文件所在目录执行：
 [root@hbase-phoenix es-sqly]# docker build -t elasticsearch-sql:6.6.2 .
 命令最后有一个. 表示当前目录，，或者docker build  --no-cache -t elasticsearch-sql:6.6.2 .
@@ -51,23 +52,31 @@ elasticsearch-sql                             6.6.2                        829a5
 docker run  --name es-sql  -d -p 8080:8080 -p 9300:9300 -p 9200:9200 elasticsearch-sql:6.6.2
 这条命令会用 nginx 镜像启动一个容器，命名为docker_nginx_v1，并且映射了 80 端口，这样我们可以用浏览器去访问这个 nginx 服务器：http://192.168.0.54/，页面返回信息：
 docker run  --name es-sql  -p 8080:8080 -p 9300:9300 -p 9200:9200 elasticsearch-sql:6.6.2
-## 1.1.查看本地镜像1.2
+```
+## 1.1.查看本地镜像
+```shell
 [root@hbase-phoenix es-sqly]# docker images
 REPOSITORY                                    TAG                          IMAGE ID            CREATED             SIZE
 elasticsearch-sql                             6.6.2                        829a51b69bea        14 minutes ago      1.23 GB
+```
 ## 1.2.打tag镜像为851279676/es-sql:6.6.2
+```shell
 [root@hbase-phoenix es-sqly]# docker tag 829a51b69bea 851279676/es-sql:6.6.2
 [root@hbase-phoenix es-sqly]# docker images
 REPOSITORY                                    TAG                          IMAGE ID            CREATED             SIZE
 elasticsearch-sql                             6.6.2                        829a51b69bea        36 minutes ago      1.23 GB
 851279676/es-sql                              6.6.2                        829a51b69bea        36 minutes ago      1.23 GB
+```
 ## 1.3.登陆远程仓库
+```shell
 [root@hbase-phoenix es-sqly]# docker login
 Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
 Username (851279676): 851279676
 Password: 
 Login Succeeded
+```
 ## 1.4.提交到远程仓库
+```shell
 [root@hbase-phoenix es-sqly]# docker push 851279676/es-sql:6.6.2
 The push refers to a repository [docker.io/851279676/es-sql]
 d4f8ef7cc6d3: Pushed 
@@ -90,8 +99,10 @@ f82bc681981a: Mounted from library/elasticsearch
 071d8bd76517: Mounted from library/elasticsearch 
 6.6.2: digest: sha256:5bd18563da2a2e5f67bfebcdcbe70b502caffd2033119d5a90978b5634253962 size: 4096
 [root@hbase-phoenix es-sqly]# 
+```
 
 ## 1.5.从远程仓库下载该镜像
+```shell
 [root@hbase-phoenix es-sqly]# docker pull 851279676/es-sql:6.6.2
 Trying to pull repository docker.io/851279676/es-sql ... 
 6.6.2: Pulling from docker.io/851279676/es-sql
@@ -137,5 +148,18 @@ Status: Downloaded newer image for docker.io/851279676/es-sql:6.6.2
 [root@hbase-phoenix es-sqly]# docker images
 REPOSITORY                                    TAG                          IMAGE ID            CREATED             SIZE
 docker.io/851279676/es-sql                    6.6.2                        829a51b69bea        About an hour ago   1.23 GB
-
 ```
+## 1.6.启动es-sql容器
+
+```shell
+[root@hbase-phoenix es-sqly]# docker run  --name es-sql  -d -p 8080:8080 -p 9300:9300 -p 9200:9200 829a51b69bea
+f35552f797437902bbba9f6dd357e728555f12d3a31c313d95a54efcf7c68608
+[root@hbase-phoenix es-sqly]# docker ps -a
+CONTAINER ID        IMAGE                                             COMMAND                  CREATED             STATUS                      PORTS                                                                    NAMES
+f35552f79743        829a51b69bea                                      "point.sh"               5 seconds ago       Up 4 seconds                0.0.0.0:8080->8080/tcp, 0.0.0.0:9200->9200/tcp, 0.0.0.0:9300->9300/tcp   es-sql
+```
+## 1.7.登陆es-sql界面
+![Image](https://github.com/yzopen/es-sql/blob/master/images/file.bmp)
+![Image](https://github.com/yzopen/es-sql/blob/master/images/es-sql.bmp)
+![Image](https://github.com/yzopen/es-sql/blob/master/images/es.bmp)
+
