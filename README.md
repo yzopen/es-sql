@@ -2,7 +2,7 @@
 
 
 ## 准备好所有的资源文件
-[./images/file.bmp]
+![Image](https://github.com/yzopen/es-sql/blob/master/images/file.bmp)
 
 ## es-sql的容器构造过程
 ```shell
@@ -159,7 +159,7 @@ CONTAINER ID        IMAGE                                             COMMAND   
 f35552f79743        829a51b69bea                                      "point.sh"               5 seconds ago       Up 4 seconds                0.0.0.0:8080->8080/tcp, 0.0.0.0:9200->9200/tcp, 0.0.0.0:9300->9300/tcp   es-sql
 ```
 ## 1.7.登陆es-sql界面
-![Image](https://github.com/yzopen/es-sql/blob/master/images/file.bmp)
 ![Image](https://github.com/yzopen/es-sql/blob/master/images/es-sql.bmp)
+
 ![Image](https://github.com/yzopen/es-sql/blob/master/images/es.bmp)
 
